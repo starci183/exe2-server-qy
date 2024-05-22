@@ -66,7 +66,7 @@ COPY --from=build /usr/src/app/dist ./dist
 
 
 # Expose the port that the application listens on.
-EXPOSE 3001
+EXPOSE 1969
 
 # Run the application.
 CMD node dist/main

@@ -16,6 +16,6 @@ async function bootstrap() {
     swaggerOptions: { defaultModelsExpandDepth: -1 },
   });
  
-  await app.listen(3001);
+  await app.listen(1969);
 }
 bootstrap();
