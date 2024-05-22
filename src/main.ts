@@ -1,9 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { HttpsOptions } from '@nestjs/common/interfaces/external/https-options.interface';
+import { join } from 'path';
+import { readFileSync } from 'fs';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const httpsOptions: HttpsOptions = {
+    key: readFileSync(join(process.cwd(), 'ssl', 'privkey.pem')),
+    cert: readFileSync(join(process.cwd(), 'ssl', 'cert.pem')),
+  };
+
+  const app = await NestFactory.create(AppModule, { httpsOptions });
 
   const config = new DocumentBuilder()
     .setTitle('Exe2')
@@ -15,7 +23,7 @@ async function bootstrap() {
   SwaggerModule.setup('/', app, document, {
     swaggerOptions: { defaultModelsExpandDepth: -1 },
   });
- 
+
   await app.listen(1969);
 }
 bootstrap();
