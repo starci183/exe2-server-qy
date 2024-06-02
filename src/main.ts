@@ -11,7 +11,7 @@ const bootstrap = async () => {
     cert: readFileSync(join(process.cwd(), 'ssl', 'cert.pem')),
   };
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { httpsOptions });
 
   const config = new DocumentBuilder()
     .setTitle('Exe2')
