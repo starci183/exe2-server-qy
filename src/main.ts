@@ -5,7 +5,7 @@ import { HttpsOptions } from '@nestjs/common/interfaces/external/https-options.i
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
-async function bootstrap() {
+const bootstrap = async () => {
   const httpsOptions: HttpsOptions = {
     key: readFileSync(join(process.cwd(), 'ssl', 'privkey.pem')),
     cert: readFileSync(join(process.cwd(), 'ssl', 'cert.pem')),
