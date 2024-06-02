@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { InjectRepository } from "@nestjs/typeorm";
 import { AccountEntity } from "src/database";
 import { Repository } from "typeorm";
-import { SignInRequestBody, SignInResponseData, SignUpRequestBody, SignUpResponseData } from "./auth.dto";
+import { MeResponseBody, SignInRequestBody, SignInResponseData, SignUpRequestBody, SignUpResponseData } from "./auth.dto";
 import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
@@ -33,6 +33,29 @@ export class AuthService {
         await this.accountRepository.save(body)
         return {
             message: "Đăng ký thành công"
+        }
+    }
+
+    async me(userId: string): Promise<MeResponseBody> {
+        const {
+            avatarId,
+            balance,
+            email,
+            gender,
+            name,
+            phoneNumber,
+            username,
+        } = await this.accountRepository.findOneBy({ userId })
+        
+        return {
+            userId,
+            avatarId,
+            balance,
+            email,
+            gender,
+            name,
+            phoneNumber,
+            username,
         }
     }
 }

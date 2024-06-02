@@ -29,6 +29,6 @@ export class AccountEntity {
     @Column({ type: "varchar", length: 12, default: null })
     phoneNumber: string
 
-    @Column({ type: "bit" })
+    @Column({ type: "boolean" })
     gender: boolean
 }
