@@ -11,6 +11,7 @@ export class AccountEntity {
 
     @Column({ type: "uuid", length: 36, default: null })
     avatarId: string
+
     @Column({ type: "varchar", length: 60, default: null })
     username: string
 
@@ -22,12 +23,12 @@ export class AccountEntity {
     })
     balance: number
 
-    @Column({ type: "varchar", length: 50, default: null })
-    firstName: string
+    @Column({ type: "varchar", length: 100, default: null })
+    name: string
 
-    @Column({ type: "varchar", length: 50, default: null })
-    lastName: string
+    @Column({ type: "varchar", length: 12, default: null })
+    phoneNumber: string
 
-    @Column({ type: "date", default: null })
-    birthdate: Date
+    @Column({ type: "bit" })
+    gender: boolean
 }

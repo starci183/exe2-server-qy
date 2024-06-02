@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ControllersModule } from './controllers';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -15,9 +16,14 @@ import { ControllersModule } from './controllers';
       synchronize: true,
       timezone: "Z",
     }),
-    ControllersModule
+    ControllersModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+  ],
 })
 export class AppModule { }

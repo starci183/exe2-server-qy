@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { InjectRepository } from "@nestjs/typeorm";
 import { AccountEntity } from "src/database";
 import { Repository } from "typeorm";
-import { SignInRequestBody, SignInResponseData } from "./auth.dto";
+import { SignInRequestBody, SignInResponseData, SignUpRequestBody, SignUpResponseData } from "./auth.dto";
 import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
@@ -20,6 +20,15 @@ export class AuthService {
         const jwtToken = await this.jwtService.signAsync(found)
         return {
             jwtToken
+        }
+    }
+
+    async signUp(body: SignUpRequestBody): Promise<SignUpResponseData> {
+        const found = await this.accountRepository.findOneBy({ email: body.email })
+        if (found) throw new NotFoundException("Tài khoản này đã được đăng ký")
+        await this.accountRepository.save(body)
+        return {
+            message: "Đăng ký thành công"
         }
     }
 }
