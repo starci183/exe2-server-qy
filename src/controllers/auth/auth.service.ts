@@ -17,7 +17,11 @@ export class AuthService {
         const found = await this.accountRepository.findOneBy({ email })
         if (!found) throw new NotFoundException("Người dùng không tồn tại")
         if (found.password !== password) throw new BadRequestException("Mật khẩu sai")
-        const jwtToken = await this.jwtService.signAsync(found)
+        const jwtToken = await this.jwtService.signAsync({
+            ...found
+        }, {
+            secret: "cuongdeptrai"
+        })
         return {
             jwtToken
         }
