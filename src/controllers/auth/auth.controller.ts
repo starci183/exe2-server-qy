@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { SignInRequestBody, SignUpRequestBody } from "./auth.dto";
-import { JwtAuthGuard, UserId } from "../common";
+import { JwtAuthGuard, AccountId } from "../common";
 import { ApiBearerAuth } from "@nestjs/swagger";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("Auth")
 @Controller("auth")
 export class AuthController {
     constructor(
@@ -23,7 +25,7 @@ export class AuthController {
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
     @Get("me")
-    async me(@UserId() userId: string) {
-        return await this.authService.me(userId)
+    async me(@AccountId() accountId: string) {
+        return await this.authService.me(accountId)
     }
 }

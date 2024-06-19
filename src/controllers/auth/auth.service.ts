@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
+import { InjectRepository } from "@nestjs/typeorm"
 import { AccountEntity } from "src/database";
 import { Repository } from "typeorm";
 import { MeResponseBody, SignInRequestBody, SignInResponseData, SignUpRequestBody, SignUpResponseData } from "./auth.dto";
@@ -36,21 +36,19 @@ export class AuthService {
         }
     }
 
-    async me(userId: string): Promise<MeResponseBody> {
+    async me(accountId: string): Promise<MeResponseBody> {
         const {
-            avatarId,
-            balance,
+            avatarUrl,
             email,
             gender,
             name,
             phoneNumber,
             username,
-        } = await this.accountRepository.findOneBy({ userId })
+        } = await this.accountRepository.findOneBy({ accountId })
         
         return {
-            userId,
-            avatarId,
-            balance,
+            accountId,
+            avatarUrl,
             email,
             gender,
             name,

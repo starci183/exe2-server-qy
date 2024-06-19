@@ -36,19 +36,16 @@ export class SignUpResponseData {
 
 export class MeResponseBody {
     @ApiProperty()
-    userId: string
+    accountId: string
 
     @ApiProperty()
     email: string
 
     @ApiProperty()
-    avatarId: string
+    avatarUrl: string
 
     @ApiProperty()
     username: string
-
-    @ApiProperty()
-    balance: number
 
     @ApiProperty()
     name: string
