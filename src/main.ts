@@ -12,7 +12,8 @@ const bootstrap = async () => {
   };
 
   const app = await NestFactory.create(AppModule, { httpsOptions });
-
+  app.enableCors()
+  
   const config = new DocumentBuilder()
     .setTitle('Exe2')
     .setVersion('1.0')

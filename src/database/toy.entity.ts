@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinColumn, OneToMany } from "typeorm"
+import { PrimaryGeneratedColumn, Column, Entity, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinColumn, OneToMany, ManyToOne } from "typeorm"
 import { CategoryEntity } from "./category.entity"
 import { OrderDetailEntity } from "./order-details.entity"
 
@@ -19,7 +19,7 @@ export class ToyEntity {
     @Column({ type: "uuid", length: 36, default: null })
     categoryId: string
 
-    @ManyToMany(() => CategoryEntity, (category) => category.toys)
+    @ManyToOne(() => CategoryEntity, (category) => category.toys)
     @JoinColumn({ name: "categoryId" })
     category: CategoryEntity
 
