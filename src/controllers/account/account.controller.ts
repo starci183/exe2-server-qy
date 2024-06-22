@@ -18,4 +18,12 @@ export class AccountController {
   ) {
     return await this.accountService.getAccounts({ pageNumber, pageSize });
   }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Get('get-all-counts')
+  async getAllCounts(
+  ) {
+    return await this.accountService.getAllCounts();
+  }
 }

@@ -12,3 +12,12 @@ export class GetAccountResponseData {
   @ApiProperty()
   count: number
 }
+
+export class GetAllCountsResponseData {
+  @ApiProperty()
+  numberOfAccounts: number
+  @ApiProperty()
+  numberOfToys: number
+  @ApiProperty()
+  numberOfOrders: number
+}
