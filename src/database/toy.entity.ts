@@ -27,9 +27,7 @@ export class ToyEntity {
     orderDetails: Array<OrderDetailEntity>
     
     @Column({
-        type: "decimal",
-        precision: 10,
-        scale: 5,
+        type: "int",
         default: 0,
     })
     price: number
