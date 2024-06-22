@@ -3,13 +3,17 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { ToyEntity } from "src/database/toy.entity";
 import { Repository } from "typeorm";
 import { AccountEntity, CategoryEntity, OrderEntity } from "src/database";
-import { GetAccountFilter, GetAccountResponseData } from "./account.dto";
+import { GetAccountFilter, GetAccountResponseData, GetAllCountsResponseData } from "./account.dto";
 
 @Injectable()
 export class AccountService {
     constructor(
         @InjectRepository(AccountEntity)
         private readonly accountRepository: Repository<AccountEntity>,
+        @InjectRepository(ToyEntity)
+        private readonly toyRepository: Repository<ToyEntity>,
+        @InjectRepository(OrderEntity)
+        private readonly orderRepository: Repository<OrderEntity>,
     ) { }
 
     async getAccounts(filter: GetAccountFilter): Promise<GetAccountResponseData> {
@@ -22,6 +26,18 @@ export class AccountService {
         return {
             accounts,
             count
+        }
+    }
+
+    async getAllCounts(): Promise<GetAllCountsResponseData> {
+        const numberOfAccounts = await this.accountRepository.count()
+        const numberOfToys = await this.toyRepository.count()
+        const numberOfOrders = await this.orderRepository.count()
+
+        return {
+            numberOfAccounts,
+            numberOfToys,
+            numberOfOrders
         }
     }
 }
