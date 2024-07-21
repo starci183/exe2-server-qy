@@ -20,4 +20,6 @@ export class GetAllCountsResponseData {
   numberOfToys: number
   @ApiProperty()
   numberOfOrders: number
+  @ApiProperty()
+  revenue: number
 }

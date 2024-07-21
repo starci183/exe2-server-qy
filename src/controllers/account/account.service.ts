@@ -33,11 +33,27 @@ export class AccountService {
         const numberOfAccounts = await this.accountRepository.count()
         const numberOfToys = await this.toyRepository.count()
         const numberOfOrders = await this.orderRepository.count()
+        
+        const orders = await this.orderRepository.find({
+            relations: {
+                orderDetails: {
+                    toy: true
+                }
+            }
+        })
+
+        let revenue = 0
+        for (const { orderDetails } of orders) {
+            for (const { quantity, toy : { price } } of orderDetails) {
+                revenue += quantity * price
+            }
+        }
 
         return {
             numberOfAccounts,
             numberOfToys,
-            numberOfOrders
+            numberOfOrders,
+            revenue
         }
     }
 }
